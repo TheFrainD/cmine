@@ -1,0 +1,10 @@
+-xc
+-std=gnu11
+-Isrc
+-Isrc
+-Ilib/glfw/include
+-Ilib/glad/include
+-Ilib/cglm/include
+-Ilib/stb
+-Ilib/log/src
+-Ilib/cvec/src

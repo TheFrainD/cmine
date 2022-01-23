@@ -1,0 +1,15 @@
+[submodule "lib/glfw"]
+	path = lib/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "lib/cglm"]
+	path = lib/cglm
+	url = https://github.com/recp/cglm.git
+[submodule "lib/stb"]
+	path = lib/stb
+	url = https://github.com/nothings/stb.git
+[submodule "lib/log"]
+	path = lib/log
+	url = https://github.com/rxi/log.c.git
+[submodule "lib/cvec"]
+	path = lib/cvec
+	url = git@github.com:TheFrainD/cvec.git

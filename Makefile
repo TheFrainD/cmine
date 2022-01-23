@@ -2,27 +2,27 @@
 UNAME_S=$(shell uname -s)
 
 # Configure compiler
-CC=clang
+CC=gcc
 CFLAGS=-std=gnu11 -g -O3 -Wall -Wextra -Wpedantic -Isrc
 LDFLAGS=-lm
 
 CMAKE_GEN=
 
+# Configure libraries
+CFLAGS+=-Ilib/glfw/include -Ilib/glad/include -Ilib/cglm/include -Ilib/log/src -Ilib/stb -Ilib/cvec/src
+LDFLAGS=lib/glfw/build/src/libglfw3.a lib/glad/src/glad.o lib/cglm/build/libcglm.a lib/log/src/log.o lib/cvec/src/cvec.o
+
 # Linux libraries
 ifeq ($(UNAME_S), Linux)
-	LDFLAGS+=-ldl -lpthread
+	LDFLAGS+=-ldl -lpthread -lm
 # MacOS frameworks
 else ifeq ($(UNAME_S), Darwin)
 	LDFLAGS+=-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa
 # Windows libs
 else
-	LDFLAGS+=-lglu32 -lopengl32 -luser32 -lgdi32 -lkernel32
+	LDFLAGS+=-lglu32 -lopengl32 -luser32 -lgdi32 -lws2_32 -lkernel32
 	CMAKE_GEN=-G "MinGW Makefiles"
 endif
-
-# Configure libraries
-CFLAGS+=-Ilib/glfw/include -Ilib/glad/include -Ilib/cglm/include -Ilib/log/src -Ilib/stb -Ilib/cvec/src
-LDFLAGS+=lib/glfw/build/src/libglfw3.a lib/glad/src/glad.o lib/cglm/build/libcglm.a lib/log/src/log.o lib/cvec/src/cvec.o
 
 SRC=$(wildcard src/*.c) $(wildcard src/**/*.c) $(wildcard src/**/**/*.c) $(wildcard src/**/**/**/*.c)
 OBJ=$(SRC:.c=.o)

@@ -4,6 +4,8 @@
 #include <stdio.h>
 
 #include <log.h>
+#define LIBCONFIG_STATIC
+#include <libconfig.h>
 
 #include "window.h"
 #include "time.h"
@@ -38,7 +40,7 @@ static b8 window_resize(u16 code, void *sender, void *listener, event_context co
 }
 
 static b8 log_init() {
-	FILE *fp = fopen("log/cmine.log", "w+");
+	FILE *fp = fopen("../log/cmine.log", "w+");
 	if (!fp) {
 		log_error("Could not open \"log/cmine.log\"!");
 		return FALSE;
@@ -60,11 +62,20 @@ b8 game_create(game_init init, game_update update,
 	state.render = render;
 	state.destroy = destroy;
 
-	state.width = WIDTH;
-	state.height = HEIGHT;
-
 	log_init();
 	log_trace("Cmine starts");
+
+	config_t cfg;
+	config_init(&cfg);
+	config_read_file(&cfg, "../config/settings.cfg");
+
+	if (!config_lookup_int(&cfg, "width", &state.width) || !config_lookup_int(&cfg, "height", &state.height)) {
+		log_error("Could not read screen size in config file!");
+		state.width = WIDTH;
+		state.height = HEIGHT;
+	}
+
+	config_destroy(&cfg);
 
 	if (!event_init()) {
 		log_error("Could not start event subsystem!");
@@ -72,7 +83,7 @@ b8 game_create(game_init init, game_update update,
 	}
 
 	// Start window subsystem
-	if (!window_create(WIDTH, HEIGHT, TITLE)) {
+	if (!window_create(state.width, state.height, TITLE)) {
 		log_fatal("Could not start window subsystem!");
 		return FALSE;
 	}	

@@ -13,6 +13,7 @@ typedef struct {
 } keyboard_state;
 
 typedef struct {
+	b8 grabbed;
 	b8 buttons[MOUSE_BUTTON_MAX];
 	f64 x, y;
 	f64 prev_x, prev_y;
@@ -66,13 +67,12 @@ b8 input_init() {
 	memset(state.keyboard.keys, 0, sizeof(state.keyboard.keys));
 	memset(state.mouse.buttons, 0, sizeof(state.mouse.buttons));
 
-	/* window_key_callback(key_callback); */
-	/* window_mouse_callback(mouse_callback); */
-	/* window_cursor_callback(cursor_callback); */
+	window_set_key_callback(key_callback);
+	window_set_mouse_callback(mouse_callback);
+	window_set_cursor_pos_callback(cursor_callback);
 
-	glfwSetKeyCallback((GLFWwindow *)window_get(), key_callback);
-	glfwSetMouseButtonCallback((GLFWwindow *)window_get(), mouse_callback);
-	glfwSetCursorPosCallback((GLFWwindow *)window_get(), cursor_callback);
+	state.mouse.grabbed = TRUE;
+	window_mouse_grab(state.mouse.grabbed);
 
 	initialized = TRUE;
 	log_trace("Input subsystem initialized");
@@ -139,3 +139,11 @@ void input_mouse_prev(f64 *x, f64 *y) {
 	*y = state.mouse.prev_y;
 }
 
+b8 input_is_mouse_grabbed() {
+	return state.mouse.grabbed;
+}
+
+void input_set_mouse_grabbed(b8 grabbed) {
+	state.mouse.grabbed = grabbed;
+	window_mouse_grab(grabbed);
+}

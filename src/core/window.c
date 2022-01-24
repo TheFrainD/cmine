@@ -161,6 +161,18 @@ i32 window_height() {
 	return state.height;
 }
 
-void *window_get() {
-	return state.window;
+void window_set_key_callback(void *callback) {
+	glfwSetKeyCallback(state.window, callback);
+}
+
+void window_set_mouse_callback(void *callback) {
+	glfwSetMouseButtonCallback(state.window, callback);
+}
+
+void window_set_cursor_pos_callback(void *callback) {
+	glfwSetCursorPosCallback(state.window, callback);
+}	
+
+void window_mouse_grab(b8 grab) {
+	glfwSetInputMode(state.window, GLFW_CURSOR, grab ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }

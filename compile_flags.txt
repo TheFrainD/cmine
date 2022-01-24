@@ -8,3 +8,4 @@
 -Ilib/stb
 -Ilib/log/src
 -Ilib/cvec/src
+-Ilib/libconfig/lib

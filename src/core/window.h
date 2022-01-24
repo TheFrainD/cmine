@@ -13,6 +13,10 @@ void window_swap_buffers();
 i32 window_width();
 i32 window_height();
 
-void *window_get();
+void window_set_key_callback(void *);
+void window_set_mouse_callback(void *);
+void window_set_cursor_pos_callback(void *);
+
+void window_mouse_grab(b8 grab);
 
 #endif // CMINE_WINDOW_H_

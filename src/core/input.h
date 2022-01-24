@@ -152,4 +152,7 @@ b8 input_mbutton_released(u16 button);
 void input_mouse_pos(f64 *x, f64 *y);
 void input_mouse_prev(f64 *x, f64 *y);
 
+b8 input_is_mouse_grabbed();
+void input_set_mouse_grabbed(b8 grabbed);
+
 #endif // CMINE_INPUT_H_

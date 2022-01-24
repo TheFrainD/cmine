@@ -1,0 +1,28 @@
+{
+  "configurations": [
+        {
+          "name": "Win32",
+          "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/lib/glfw/include",
+                "${workspaceFolder}/lib/glad/include",
+                "${workspaceFolder}/lib/log/src",
+                "${workspaceFolder}/lib/cvec/src",
+                "${workspaceFolder}/lib/stb",
+                "${workspaceFolder}/lib/cglm/include",
+                "${workspaceFolder}/lib/libconfig/lib"
+          ],
+          "defines": [
+                "UNICODE",
+                "_UNICODE",
+                "__clang__"
+          ],
+          "windowsSdkVersion": "10.0.18362.0",
+          "compilerPath": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+          "cStandard": "c11",
+          "cppStandard": "c++11",
+          "intelliSenseMode": "gcc-x64"
+      }
+  ],
+  "version": 4
+} 

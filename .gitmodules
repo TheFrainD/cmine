@@ -13,3 +13,6 @@
 [submodule "lib/cvec"]
 	path = lib/cvec
 	url = git@github.com:TheFrainD/cvec.git
+[submodule "lib/libconfig"]
+	path = lib/libconfig
+	url = https://github.com/hyperrealm/libconfig.git

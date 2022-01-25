@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-typedef u8 block;
+typedef i16 block;
 
 #endif // CMINE_BLOCK_H_

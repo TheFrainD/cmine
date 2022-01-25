@@ -16,15 +16,13 @@
 #include "utils/camera.h"
 #include "world/chunk.h"
 #include "world/chunkmesh.h"
+#include "world/worldgen.h"
+#include "utils/math.h"
 
 shader shader_;
 texture terrain;
-
-chunk chunk_;
-mesh mesh_;
 camera camera_;
 
-mat4s model;
 f64 timer = 0.0;
 
 b8 key_handler(u16 code, void *sender, void *listener, event_context context) {
@@ -44,13 +42,16 @@ b8 key_handler(u16 code, void *sender, void *listener, event_context context) {
 
 b8 init() {
 
-	shader_create(&shader_, "../res/shaders/vertex.glsl", "../res/shaders/fragment.glsl");
+	shader_create(&shader_, "../res/shaders/chunk.vert", "../res/shaders/chunk.frag");
     texture_create(&terrain, "../res/textures/terrain.png");
-
-    chunk_create(&chunk_);
-    chunk_gen_mesh(&chunk_, &mesh_);
     
-    camera_create(&camera_, 1.0472f);
+    camera_create(&camera_, PI / 3.0f);
+    camera_.position.z = 64.0f;
+    camera_.position.y = 80.0f;
+    camera_.position.z = 64.0f;
+
+    world_init(10, 4, 10);
+    world_gen_chunks();
     
     event_subscribe(EVENT_CODE_KEY_PRESSED, NULL, key_handler);
 	return TRUE;
@@ -58,7 +59,7 @@ b8 init() {
 
 b8 update(f64 delta_time) {	
     
-    f32 velocity = 5.0f * delta_time;
+    f32 velocity = 15.0f * delta_time;
     if (input_key_pressed(KEY_W)) {
         camera_.position = glms_vec3_add(camera_.position, glms_vec3_scale(camera_.front, velocity));
     } else if (input_key_pressed(KEY_S)) {
@@ -84,14 +85,11 @@ b8 update(f64 delta_time) {
 }
 
 b8 render(f64 delta_time) {
-	glClearColor(0.0, 0.2, 0.3, 1.0);
+	glClearColor(0.0, 0.709803f, 0.886274f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	shader_use(&shader_);
    
-    model = glms_translate_make(GLMS_VEC3_ZERO);
-
-    shader_mat4(&shader_, "model", model);
     shader_mat4(&shader_, "view", camera_.view);
     shader_mat4(&shader_, "proj", camera_.proj);
 
@@ -101,15 +99,12 @@ b8 render(f64 delta_time) {
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
     glDepthFunc(GL_LEQUAL);
-    mesh_draw(&mesh_);
+    world_draw(&shader_);
 
 	return TRUE;
 }
 
 b8 destroy() {
-    chunk_destroy(&chunk_);
-    mesh_destroy(&mesh_);
-
 	return TRUE;
 }
 

@@ -10,9 +10,10 @@ typedef struct {
     vao vao_;
     f32 *buffer;
     u32 size;
+    b8 used;
 } mesh;
 
-void mesh_create(mesh *self, f32* buffer, u32 size, const int *attrib);
+void mesh_create(mesh *self, f32* buffer, u32 size, const int *attrib, b8 used);
 void mesh_destroy(mesh *self);
 void mesh_draw(mesh *self);
 

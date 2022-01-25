@@ -5,8 +5,8 @@ in float v_light;
 
 out vec4 color;
 
-uniform sampler2D image;
+uniform sampler2D u_image;
 
 void main() {
-	color = texture(image, v_uv) * v_light;
+	color = texture(u_image, v_uv) * v_light;
 }

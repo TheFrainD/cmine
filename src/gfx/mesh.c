@@ -3,24 +3,27 @@
 #include <glad/glad.h>
 #include <log.h>
 
-void mesh_create(mesh *self, f32* buffer, u32 size, const int *attrib) {
+void mesh_create(mesh *self, f32* buffer, u32 size, const int *attrib, b8 used) {
+    self->used = used;
     self->buffer = buffer;
     self->size = size;
     
-    i32 vertex_size = 0;
-    for (i32 i = 0; attrib[i]; i++) {
-        vertex_size += attrib[i];
-    } 
+    if (used) {
+        i32 vertex_size = 0;
+        for (i32 i = 0; attrib[i]; i++) {
+            vertex_size += attrib[i];
+        } 
 
-    vao_create(&self->vao_);
-    vbo_create(&self->vbo_, GL_ARRAY_BUFFER, FALSE);
+        vao_create(&self->vao_);
+        vbo_create(&self->vbo_, GL_ARRAY_BUFFER, FALSE);
 
-    vbo_data(&self->vbo_, sizeof(f32) * vertex_size * size, buffer);
-    
-    i32 offset = 0;
-    for (i32 i = 0; attrib[i]; i++) {
-        vao_attrib(&self->vao_, &self->vbo_, i, attrib[i], GL_FLOAT, vertex_size * sizeof(f32), offset * sizeof(f32));
-        offset += attrib[i];
+        vbo_data(&self->vbo_, sizeof(f32) * vertex_size * size, buffer);
+        
+        i32 offset = 0;
+        for (i32 i = 0; attrib[i]; i++) {
+            vao_attrib(&self->vao_, &self->vbo_, i, attrib[i], GL_FLOAT, vertex_size * sizeof(f32), offset * sizeof(f32));
+            offset += attrib[i];
+        }
     }
 }
 

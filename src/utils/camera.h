@@ -6,10 +6,6 @@
 
 #include "config.h"
 
-#define PI GLM_PI
-#define PI_2 GLM_PI_2
-#define TAU (2 * PI)
-
 typedef struct {
 	mat4s view, proj;
 	vec3s position, front, up, right, world_up;

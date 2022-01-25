@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "chunk.h": "c"
+        "chunk.h": "c",
+        "shader.h": "c",
+        "array": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c",
+        "event.h": "c"
     }
 }

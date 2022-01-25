@@ -5,6 +5,15 @@
 #include "gfx/mesh.h"
 #include "world/chunk.h"
 
-void chunk_gen_mesh(chunk *chunk, mesh *mesh);
+enum faces {
+	UP,
+	DOWN,
+    RIGHT,
+	LEFT,
+	FRONT,
+	BACK,
+};
+
+void chunk_gen_mesh(chunk *self, mesh *mesh, chunk **neighbouring);
 
 #endif // CMINE_CHUNKMESH_H_

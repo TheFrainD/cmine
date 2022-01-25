@@ -1,6 +1,9 @@
 #ifndef CMINE_CHUNK_H_
 #define CMINE_CHUNK_H_
 
+#include <cglm/cglm.h>
+#include <cglm/struct.h>
+
 #include "config.h"
 #include "block.h"
 
@@ -11,9 +14,10 @@
 
 typedef struct {
     block* blocks;
+    vec3s position;
 } chunk;
 
-void chunk_create(chunk *self);
+void chunk_create(chunk *self, vec3s position);
 void chunk_destroy(chunk *self);
 
 #endif // CMINE_CHUNK_H_

@@ -8,8 +8,9 @@
 #include "core/game.h"
 #include "core/event.h"
 #include "core/window.h"
+#include "utils/math.h"
 
-#define MOUSE_SENSITIVITY 0.2f
+#define MOUSE_SENSITIVITY 0.002f
 
 void camera_update(camera *self) {
 	self->pitch = CLAMP(self->pitch, -PI_2 + 0.01f, PI_2 - 0.01f);
@@ -39,8 +40,8 @@ static b8 cam_look_update(u16 code, void *sender, void *listener, event_context 
 	
 	f64 delta_x = CLAMP(context.data.f32[0] - context.data.f32[2], -100.0f, 100.0f);
 	f64 delta_y = CLAMP(context.data.f32[3] - context.data.f32[1], -100.0f, 100.0f);
-	self->yaw += delta_x * game_delta_time() * MOUSE_SENSITIVITY;
-	self->pitch += delta_y * game_delta_time() * MOUSE_SENSITIVITY;
+	self->yaw += delta_x * MOUSE_SENSITIVITY;
+	self->pitch += delta_y *  MOUSE_SENSITIVITY;
 
 	camera_update(self);
 	return TRUE;

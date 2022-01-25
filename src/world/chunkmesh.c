@@ -7,6 +7,8 @@
 
 #define VERTEX_SIZE (3 + 2 + 1)
 
+// Ugly stuff that happens to work (god bless amerika)
+// TODO: CLEAN IT FUCKING UP
 #define IS_IN_THIS(x, y, z) ((x) >= 0 && (x) < CHUNK_SIZE_X && (y) >= 0 && (y) < CHUNK_SIZE_Y && (z) >= 0 && (z) < CHUNK_SIZE_Z)
 #define GET_CHUNK(x, y, z, dir) (IS_IN_THIS(x, y, z) ? self : neighbouring[dir])
 #define IS_IN_CHUNK(x, y, z, dir) (GET_CHUNK(x, y, z, dir) != NULL)
@@ -15,13 +17,13 @@
 #define GET_BLOCK(x, y, z, dir) (IS_IN_THIS(x, y, z) ? (self->blocks[((y) * CHUNK_SIZE_Z + (z)) * CHUNK_SIZE_X + (x)]) : GET_BLOCK_FROM(x, y, z, dir))
 #define IS_BLOCKED(x, y, z, dir) (!IS_IN_CHUNK(x, y, z, dir) || (GET_BLOCK(x, y, z, dir) != 0 && GET_BLOCK(x, y, z, dir) != 15))
 
-#define VERTEX_APPEND(i, x, y, z, u, v, l) buffer[i+0] = (x);\
-                                        buffer[i+1] = (y);\
-                                        buffer[i+2] = (z);\
-                                        buffer[i+3] = (u);\
-                                        buffer[i+4] = (v);\
-                                        buffer[i+5] = (l);\
-                                        i += VERTEX_SIZE;
+#define VERTEX_APPEND(i, x, y, z, u, v, l) 	buffer[i+0] = (x);\
+											buffer[i+1] = (y);\
+											buffer[i+2] = (z);\
+											buffer[i+3] = (u);\
+											buffer[i+4] = (v);\
+											buffer[i+5] = (l);\
+											i += VERTEX_SIZE;
 
 const i32 attrib[] = {3, 2, 1, 0};
 
@@ -130,8 +132,12 @@ void chunk_gen_mesh(chunk *self, mesh *mesh, chunk **neighbouring) {
         }
     }
 
+	// Very important for performace, reduces buffer size accordingly to
+	// amount of vertices in it. (We create buffer with max capacity)
 	f32 *comp_buf = (f32 *)realloc(buffer, (index+1) * sizeof(f32));
-	buffer = comp_buf;
+	if (comp_buf) {
+		buffer = comp_buf;
+	}
 
     mesh_create(mesh, buffer, (index+1) / VERTEX_SIZE, attrib, used);
 }

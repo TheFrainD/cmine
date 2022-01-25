@@ -13,7 +13,7 @@
 #define CHUNK_VOLUME (CHUNK_SIZE_X * CHUNK_SIZE_Y * CHUNK_SIZE_Z)
 
 typedef struct {
-    block* blocks;
+    block blocks[CHUNK_VOLUME];
     vec3s position;
 } chunk;
 

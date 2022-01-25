@@ -4,16 +4,13 @@
 #include <stdio.h>
 
 #include <log.h>
-#define LIBCONFIG_STATIC
-#include <libconfig.h>
 
-#include "window.h"
-#include "time.h"
-#include "event.h"
-#include "input.h"
+#include "core/window.h"
+#include "core/time.h"
+#include "core/event.h"
+#include "core/input.h"
+#include "core/settings.h"
 
-#define WIDTH 800
-#define HEIGHT 600
 #define TITLE "Cmine"
 
 typedef struct {
@@ -65,17 +62,12 @@ b8 game_create(game_init init, game_update update,
 	log_init();
 	log_trace("Cmine starts");
 
-	config_t cfg;
-	config_init(&cfg);
-	config_read_file(&cfg, "../config/settings.cfg");
-
-	if (!config_lookup_int(&cfg, "width", &state.width) || !config_lookup_int(&cfg, "height", &state.height)) {
-		log_error("Could not read screen size in config file!");
-		state.width = WIDTH;
-		state.height = HEIGHT;
+	if (!settings_init()) {
+		log_error("Could not load settings!");
+		return FALSE;
 	}
-
-	config_destroy(&cfg);
+	state.width = game_settings.window_width;
+	state.height = game_settings.window_height;
 
 	if (!event_init()) {
 		log_error("Could not start event subsystem!");

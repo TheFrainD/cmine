@@ -8,7 +8,6 @@
 typedef struct {
     vbo vbo_;
     vao vao_;
-    f32 *buffer;
     u32 size;
     b8 used;
 } mesh;

@@ -12,7 +12,10 @@
 	url = https://github.com/rxi/log.c.git
 [submodule "lib/cvec"]
 	path = lib/cvec
-	url = git@github.com:TheFrainD/cvec.git
+	url = https://github.com/TheFrainD/cvec.git
 [submodule "lib/libconfig"]
 	path = lib/libconfig
 	url = https://github.com/hyperrealm/libconfig.git
+[submodule "lib/noise"]
+	path = lib/noise
+	url = https://github.com/stegu/perlin-noise.git

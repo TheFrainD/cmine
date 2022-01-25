@@ -4,7 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <log.h>
 
-#include "event.h"
+#include "core/event.h"
+#include "core/settings.h"
 
 typedef struct {
 	GLFWwindow *window;
@@ -64,7 +65,7 @@ b8 window_create(i32 width, i32 height, char *title) {
 	log_trace("Window created");
 
 	glfwMakeContextCurrent(state.window);
-	glfwSwapInterval(1);	// V-Sync
+	glfwSwapInterval(game_settings.vsync);	// V-Sync
 
 	glfwSetWindowSizeCallback(state.window, size_callback);
 

@@ -50,7 +50,7 @@ b8 init() {
     camera_.position.y = 80.0f;
     camera_.position.z = 64.0f;
 
-    world_init(10, 4, 10);
+    world_init();
     world_gen_chunks();
     
     event_subscribe(EVENT_CODE_KEY_PRESSED, NULL, key_handler);

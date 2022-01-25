@@ -10,7 +10,8 @@
                 "${workspaceFolder}/lib/cvec/src",
                 "${workspaceFolder}/lib/stb",
                 "${workspaceFolder}/lib/cglm/include",
-                "${workspaceFolder}/lib/libconfig/lib"
+                "${workspaceFolder}/lib/libconfig/lib",
+                "${workspaceFolder}/lib/noise/src"
           ],
           "defines": [
                 "UNICODE",

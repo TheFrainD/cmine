@@ -7,6 +7,10 @@
         "string_view": "c",
         "initializer_list": "c",
         "utility": "c",
-        "event.h": "c"
+        "event.h": "c",
+        "settings.h": "c",
+        "input.h": "c",
+        "time.h": "c",
+        "window.h": "c"
     }
 }

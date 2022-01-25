@@ -5,7 +5,6 @@
 
 void mesh_create(mesh *self, f32* buffer, u32 size, const int *attrib, b8 used) {
     self->used = used;
-    self->buffer = buffer;
     self->size = size;
     
     if (used) {

@@ -6,7 +6,7 @@
 #include "world/chunkmesh.h"
 #include "gfx/shader.h"
 
-b8 world_init(i32 size_x, i32 size_y, i32 size_z);
+b8 world_init();
 void world_gen_chunks();
 void world_draw(shader *shader);
 

@@ -9,3 +9,4 @@
 -Ilib/log/src
 -Ilib/cvec/src
 -Ilib/libconfig/lib
+-Ilib/noise/src
